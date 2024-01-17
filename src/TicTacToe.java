@@ -6,6 +6,7 @@ public class TicTacToe {
     private int size;
     private Cell[] board;
 
+    private int count = 0;
     Player player = new Player("X");
 
     public TicTacToe() {
@@ -27,22 +28,32 @@ public class TicTacToe {
         System.out.println("-------------");
     }
 
-    public void getMoveFromPlayer() {
+    public int[] getMoveFromPlayer() {
+        int[] coordinates = new int[2];
 
-        int[] coordonate = new int[2];
-        System.out.println("Veuillez entrer la coordonnée X");
-        int X = getInputUser();
-        X = verifyInputUser(X);
-        coordonate[0] = X;
+        while (true) {
+            System.out.println("Veuillez entrer la coordonnée X");
+            int X = getInputUser();
+            X = verifyInputUser(X);
+            coordinates[0] = X;
 
-        System.out.println("Veuillez entrer la coordonnée Y");
-        int Y = getInputUser();
-        verifyInputUser(Y);
-        Y = verifyInputUser(Y);
-        coordonate[1] = Y;
+            System.out.println("Veuillez entrer la coordonnée Y");
+            int Y = getInputUser();
+            Y = verifyInputUser(Y);
+            coordinates[1] = Y;
 
-        System.out.println(Arrays.toString(coordonate));
+            int index = coordinates[0] * size + coordinates[1];
+
+            if (!board[index].isEmpt()) {
+                System.out.println("La case est déjà prise");
+            } else {
+                break;  // Sortir de la boucle si la case est valide
+            }
+        }
+
+        return coordinates;
     }
+
 
     static int getInputUser() {
 
@@ -67,16 +78,25 @@ public class TicTacToe {
     public void setOwner(int[] coordonates, Player player) {
 
         String representationPlayer = player.getRepresentation();
-
         int index = coordonates[0] * size + coordonates[1];
+        board[index].representation = representationPlayer;
+        board[index].setEmpt(false);
 
-        if (board[index].isEmpt()) {
-            board[index].representation = representationPlayer;
-            board[index].setEmpt(false);
-            display();
-        } else {
-            System.out.println("La case est déjà prise");
-        }
+        display();
     }
 
+    public void playATurn() {
+        System.out.println("nombre de tour " + count);
+        int[] coordonates = getMoveFromPlayer();
+        setOwner(coordonates, player);
+        count++;
+
+    }
+
+    public void play() {
+        display();
+        while (true) {
+            playATurn();
+        }
+    }
 }
