@@ -54,7 +54,6 @@ public class TicTacToe {
                 validMove = true;  // Sortir de la boucle si la case est valide
             }
         }
-
         return coordinates;
     }
 
@@ -89,17 +88,8 @@ public class TicTacToe {
         display();
     }
 
-    public void playOnePlayerTurn(Player player) {
-
-//        int[] coordonates = getMoveFromPlayer();
-//        setOwner(coordonates, player);
-//        //System.out.println("nombre de tour = " + count);
-//
-//        System.out.println("nombre de tour = " + count);
-    }
-
     public boolean boardIsFull() {
-        return count >= size*size;
+        return count >= size * size;
     }
 
     public void play() {
@@ -109,13 +99,11 @@ public class TicTacToe {
             setOwner(coordonates, currentPlayer);
             nextPlayer();
 
-
         } while (!boardIsFull());
         System.out.println("GAME OVER");
     }
 
     public void nextPlayer() {
-
         currentPlayer = (currentPlayer == player) ? player2 : player;
     }
 }
