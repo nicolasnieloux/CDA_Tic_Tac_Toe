@@ -6,10 +6,13 @@ public class TicTacToe {
     private int size;
     private Cell[] board;
 
+    private Player currentPlayer;
     private int count = 0;
     Player player = new Player("X");
+    Player player2 = new Player("O");
 
     public TicTacToe() {
+        this.currentPlayer = player;
         this.size = 3;
         this.board = new Cell[size * size];
         for (int i = 0; i < size * size; i++) {
@@ -30,8 +33,9 @@ public class TicTacToe {
 
     public int[] getMoveFromPlayer() {
         int[] coordinates = new int[2];
+        boolean validMove = false;
 
-        while (true) {
+        while (!validMove) {
             System.out.println("Veuillez entrer la coordonnée X");
             int X = getInputUser();
             X = verifyInputUser(X);
@@ -47,7 +51,7 @@ public class TicTacToe {
             if (!board[index].isEmpt()) {
                 System.out.println("La case est déjà prise");
             } else {
-                break;  // Sortir de la boucle si la case est valide
+                validMove = true;  // Sortir de la boucle si la case est valide
             }
         }
 
@@ -81,22 +85,37 @@ public class TicTacToe {
         int index = coordonates[0] * size + coordonates[1];
         board[index].representation = representationPlayer;
         board[index].setEmpt(false);
-
+        count++;
         display();
     }
 
-    public void playATurn() {
-        System.out.println("nombre de tour " + count);
-        int[] coordonates = getMoveFromPlayer();
-        setOwner(coordonates, player);
-        count++;
+    public void playOnePlayerTurn(Player player) {
 
+//        int[] coordonates = getMoveFromPlayer();
+//        setOwner(coordonates, player);
+//        //System.out.println("nombre de tour = " + count);
+//
+//        System.out.println("nombre de tour = " + count);
+    }
+
+    public boolean boardIsFull() {
+        return count >= size*size;
     }
 
     public void play() {
         display();
-        while (true) {
-            playATurn();
-        }
+        do {
+            int[] coordonates = getMoveFromPlayer();
+            setOwner(coordonates, currentPlayer);
+            nextPlayer();
+
+
+        } while (!boardIsFull());
+        System.out.println("GAME OVER");
+    }
+
+    public void nextPlayer() {
+
+        currentPlayer = (currentPlayer == player) ? player2 : player;
     }
 }
