@@ -8,9 +8,11 @@ public class TicTacToe {
 
     private Player currentPlayer;
     private int count = 0;
-    Player player = new Player("X");
-    Player player2 = new Player("O");
+//    Player player = new Player("X");
+//    Player player2 = new Player("O");
 
+    HumanPlayer player = new HumanPlayer("X");
+    ArtificialPlayer gepeto = new ArtificialPlayer("O");
     public TicTacToe() {
         this.currentPlayer = player;
         this.size = 3;
@@ -45,6 +47,29 @@ public class TicTacToe {
             int Y = getInputUser();
             Y = verifyInputUser(Y);
             coordinates[1] = Y;
+
+            int index = coordinates[0] * size + coordinates[1];
+
+            if (!board[index].isEmpt()) {
+                System.out.println("La case est déjà prise");
+            } else {
+                validMove = true;  // Sortir de la boucle si la case est valide
+            }
+        }
+        return coordinates;
+    }
+
+
+    public int[] getMoveFromArtificialPlayer() {
+        int[] coordinates = new int[2];
+        boolean validMove = false;
+
+        while (!validMove) {
+            System.out.println("Coordonnée X de Gepeto");
+            coordinates[0] = gepeto.PlayArtificialPlayer();
+
+            System.out.println("Coordonnée Y de Gepeto");
+            coordinates[1] = gepeto.PlayArtificialPlayer();;
 
             int index = coordinates[0] * size + coordinates[1];
 
@@ -132,18 +157,27 @@ public class TicTacToe {
         display();
         do {
             if (!isOver()) {
-                int[] coordonates = getMoveFromPlayer();
-                setOwner(coordonates, currentPlayer);
+                System.out.println(currentPlayer);
+                if (currentPlayer instanceof HumanPlayer) {
+                    int[] coordonates = getMoveFromPlayer();
+                    setOwner(coordonates, currentPlayer);
+                } else {
+                    int[] coordonates = getMoveFromArtificialPlayer();
+                    setOwner(coordonates, currentPlayer);
+                }
                 nextPlayer();
+
             }
 
         } while (!boardIsFull() && !isOver());
 
+    nextPlayer();
+        System.out.println(" Le vainqueur est : " + currentPlayer.getRepresentation() );
         System.out.println("GAME OVER");
 
     }
 
     public void nextPlayer() {
-        currentPlayer = (currentPlayer == player) ? player2 : player;
+        currentPlayer = (currentPlayer == player) ? gepeto : player;
     }
 }
