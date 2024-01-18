@@ -92,15 +92,55 @@ public class TicTacToe {
         return count >= size * size;
     }
 
+    public boolean isOver() {
+        String symbol = player.getRepresentation();
+
+        for (int i = 0; i < size; i++) {
+            // Vérifier l'alignement horizontal
+            if (    board[i * size].representation.equals(symbol) &&
+                    board[i * size + 1].representation.equals(symbol) &&
+                    board[i * size + 2].representation.equals(symbol)) {
+                return true;
+            }
+
+            // Vérifier l'alignement vertical
+            if (    board[i].representation.equals(symbol) &&
+                    board[i + size].representation.equals(symbol) &&
+                    board[i + size * 2].representation.equals(symbol)) {
+                return true;
+            }
+        }
+
+        // Vérifier la diagonale de gauche à droite
+        if (    board[0].representation.equals(symbol) &&
+                board[4].representation.equals(symbol) &&
+                board[8].representation.equals(symbol)) {
+            return true;
+        }
+
+        // Vérifier la diagonale de droite à gauche
+        if (    board[2].representation.equals(symbol) &&
+                board[4].representation.equals(symbol) &&
+                board[6].representation.equals(symbol)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void play() {
         display();
         do {
-            int[] coordonates = getMoveFromPlayer();
-            setOwner(coordonates, currentPlayer);
-            nextPlayer();
+            if (!isOver()) {
+                int[] coordonates = getMoveFromPlayer();
+                setOwner(coordonates, currentPlayer);
+                nextPlayer();
+            }
 
-        } while (!boardIsFull());
+        } while (!boardIsFull() && !isOver());
+
         System.out.println("GAME OVER");
+
     }
 
     public void nextPlayer() {
