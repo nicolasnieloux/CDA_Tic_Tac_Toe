@@ -8,19 +8,24 @@ public class TicTacToe {
 
     private Player currentPlayer;
     private int count = 0;
-//    Player player = new Player("X");
-//    Player player2 = new Player("O");
+    Player player1;
+    Player player2;
 
-    HumanPlayer player = new HumanPlayer("X");
-    ArtificialPlayer gepeto = new ArtificialPlayer("O");
+//    HumanPlayer player = new HumanPlayer("X");
+//    HumanPlayer player2 = new HumanPlayer("O");
+//    ArtificialPlayer gepeto = new ArtificialPlayer("O");
+//    ArtificialPlayer gepeto2 = new ArtificialPlayer("X");
+
+    // Construct pour 1 joueur humain
     public TicTacToe() {
-        this.currentPlayer = player;
+        this.currentPlayer = player1;
         this.size = 3;
         this.board = new Cell[size * size];
         for (int i = 0; i < size * size; i++) {
             this.board[i] = new Cell();
         }
     }
+
 
     void display() {
         for (int i = 0; i < size; i++) {
@@ -66,10 +71,11 @@ public class TicTacToe {
 
         while (!validMove) {
             System.out.println("Coordonnée X de Gepeto");
-            coordinates[0] = gepeto.PlayArtificialPlayer();
+            coordinates[0] = (int) (Math.random() * 3);
 
             System.out.println("Coordonnée Y de Gepeto");
-            coordinates[1] = gepeto.PlayArtificialPlayer();;
+            coordinates[1] = (int) (Math.random() * 3);
+            ;
 
             int index = coordinates[0] * size + coordinates[1];
 
@@ -118,18 +124,18 @@ public class TicTacToe {
     }
 
     public boolean isOver() {
-        String symbol = player.getRepresentation();
+        String symbol = player1.getRepresentation();
 
         for (int i = 0; i < size; i++) {
             // Vérifier l'alignement horizontal
-            if (    board[i * size].representation.equals(symbol) &&
+            if (board[i * size].representation.equals(symbol) &&
                     board[i * size + 1].representation.equals(symbol) &&
                     board[i * size + 2].representation.equals(symbol)) {
                 return true;
             }
 
             // Vérifier l'alignement vertical
-            if (    board[i].representation.equals(symbol) &&
+            if (board[i].representation.equals(symbol) &&
                     board[i + size].representation.equals(symbol) &&
                     board[i + size * 2].representation.equals(symbol)) {
                 return true;
@@ -137,14 +143,14 @@ public class TicTacToe {
         }
 
         // Vérifier la diagonale de gauche à droite
-        if (    board[0].representation.equals(symbol) &&
+        if (board[0].representation.equals(symbol) &&
                 board[4].representation.equals(symbol) &&
                 board[8].representation.equals(symbol)) {
             return true;
         }
 
         // Vérifier la diagonale de droite à gauche
-        if (    board[2].representation.equals(symbol) &&
+        if (board[2].representation.equals(symbol) &&
                 board[4].representation.equals(symbol) &&
                 board[6].representation.equals(symbol)) {
             return true;
@@ -152,9 +158,37 @@ public class TicTacToe {
 
         return false;
     }
+    public int chooseNewGame() {
+        System.out.println("Choississez une partie");
+        System.out.println("0- Human Vs Human");
+        System.out.println("1- Human Vs AI");
+        System.out.println("2- AI Vs AI");
+        return getInputUser();
+    }
 
+    public void getNewGame(int choice) {
+
+        if (choice == 0) {
+            player1 = new HumanPlayer("X");
+            currentPlayer = player1 ;
+            player2 = new HumanPlayer("O");
+        }
+        if (choice == 1) {
+
+            player1 = new HumanPlayer("X");
+            currentPlayer = player1 ;
+            player2 = new ArtificialPlayer("O");
+        }
+        if (choice == 2) {
+            player1 = new ArtificialPlayer("X");
+            currentPlayer = player1 ;
+            player2 = new ArtificialPlayer("O");
+        }
+    }
     public void play() {
         display();
+        getNewGame(chooseNewGame());
+
         do {
             if (!isOver()) {
                 System.out.println(currentPlayer);
@@ -171,13 +205,16 @@ public class TicTacToe {
 
         } while (!boardIsFull() && !isOver());
 
-    nextPlayer();
-        System.out.println(" Le vainqueur est : " + currentPlayer.getRepresentation() );
+        if (isOver()) {
+            nextPlayer();
+            System.out.println(" Le vainqueur est : " + currentPlayer.getRepresentation());
+        }
         System.out.println("GAME OVER");
 
     }
 
     public void nextPlayer() {
-        currentPlayer = (currentPlayer == player) ? gepeto : player;
+        currentPlayer = (currentPlayer == player1) ? player2 : player1;
     }
+
 }
