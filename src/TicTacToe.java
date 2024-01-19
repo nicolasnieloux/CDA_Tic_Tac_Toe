@@ -1,3 +1,7 @@
+/**
+ * This class represents TicTacToe game
+ * with H vs H, H vs AI or AI vs AI
+ */
 public class TicTacToe {
 
     private final int size;
@@ -11,7 +15,9 @@ public class TicTacToe {
     Player player1;
     Player player2;
 
-    // Construct pour 1 joueur humain
+    /**
+     * Constructs a TicTacToe game with a default size of 3x3.
+     */
     public TicTacToe() {
         this.size = 3;
         this.board = new Cell[size * size];
@@ -20,6 +26,10 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * Return the coordonates if they are corrects
+     * @return int[] coordonates
+     */
     public int[] getMoveFromPlayer() {
         int[] coordinates = new int[2];
         boolean validMove = false;
@@ -46,7 +56,10 @@ public class TicTacToe {
         return coordinates;
     }
 
-
+    /**
+     * Return the coordonate of the AI if they are
+     * @return int[] coordonate
+     */
     public int[] getMoveFromArtificialPlayer() {
         int[] coordinates = new int[2];
         boolean validMove = false;
@@ -58,7 +71,7 @@ public class TicTacToe {
             int index = coordinates[0] * size + coordinates[1];
 
             if (!board[index].isEmpt()) {
-                view.caseIsNotEmpty();
+                view.displayMessageCellIsNotEmpty();
             } else {
                 validMove = true;  // Sortir de la boucle si la case est valide
             }
@@ -66,6 +79,12 @@ public class TicTacToe {
         return coordinates;
     }
 
+    /**
+     * Verifies and corrects the user input.
+     *
+     * @param InputUser The user input to be verified.
+     * @return Corrected user input.
+     */
     public int verifyInputUser(int InputUser) {
         while (InputUser > size - 1 || InputUser < 0) {
             view.displayCorrectXy();
@@ -74,6 +93,12 @@ public class TicTacToe {
         return InputUser;
     }
 
+    /**
+     * Sets the owner of a cell on the board.
+     *
+     * @param coordonates The coordinates on the board.
+     * @param player      The player to set as the owner.
+     */
     public void setOwner(int[] coordonates, Player player) {
 
         String representationPlayer = player.getRepresentation();
@@ -84,10 +109,20 @@ public class TicTacToe {
         view.display(size, board);
     }
 
+    /**
+     * Checks if the board is full.
+     *
+     * @return True if the board is full, false otherwise.
+     */
     public boolean boardIsFull() {
         return count >= size * size;
     }
 
+    /**
+     * Checks if the game is over.
+     *
+     * @return True if the game is over, false otherwise.
+     */
     public boolean isOver() {
         String symbol = player1.getRepresentation();
 
@@ -124,6 +159,11 @@ public class TicTacToe {
         return false;
     }
 
+    /**
+     * Initiates a new game based on the user's choice.
+     *
+     * @param choice The user's choice for the new game.
+     */
     public void getNewGame(int choice) {
 
         if (choice == 0) {
@@ -144,6 +184,9 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * Initiates and plays the Tic Tac Toe game.
+     */
     public void play() {
         view.display(size, board);
         view.chooseNewGame();
@@ -172,6 +215,9 @@ public class TicTacToe {
         view.getGameOverMessage();
     }
 
+    /**
+     * Switches to the next player.
+     */
     public void nextPlayer() {
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
     }
