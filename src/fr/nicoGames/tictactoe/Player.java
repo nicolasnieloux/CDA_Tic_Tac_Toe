@@ -1,3 +1,5 @@
+package fr.nicoGames.tictactoe;
+
 /**
  * This abstract class represents a player
  */

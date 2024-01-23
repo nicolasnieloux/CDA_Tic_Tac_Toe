@@ -1,3 +1,5 @@
+package fr.nicoGames.tictactoe;
+
 import java.util.Scanner;
 
 /**

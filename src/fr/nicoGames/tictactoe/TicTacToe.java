@@ -1,5 +1,7 @@
+package fr.nicoGames.tictactoe;
+
 /**
- * This class represents TicTacToe game
+ * This class represents fr.nicoGames.tictactoe.TicTacToe game
  * with H vs H, H vs AI or AI vs AI
  */
 public class TicTacToe {
@@ -12,11 +14,11 @@ public class TicTacToe {
 
     private Player currentPlayer;
     private int count = 0;
-    Player player1;
-    Player player2;
+    private Player player1;
+    private Player player2;
 
     /**
-     * Constructs a TicTacToe game with a default size of 3x3.
+     * Constructs a fr.nicoGames.tictactoe.TicTacToe game with a default size of 3x3.
      */
     public TicTacToe() {
         this.size = 3;
@@ -103,7 +105,7 @@ public class TicTacToe {
 
         String representationPlayer = player.getRepresentation();
         int index = coordonates[0] * size + coordonates[1];
-        board[index].representation = representationPlayer;
+        board[index].setRepresentation(representationPlayer);
         board[index].setEmpt(false);
         count++;
         view.display(size, board);
@@ -126,33 +128,45 @@ public class TicTacToe {
     public boolean isOver() {
         String symbol = player1.getRepresentation();
 
+        boolean hasCompleteLine = false;
+        int z = 0;
+        while (z< board.length && !hasCompleteLine){
+            hasCompleteLine = true;
+            while((z+1) % size != 0 && hasCompleteLine) {
+                hasCompleteLine = hasCompleteLine && board[z].getRepresentation().equals(board[++z].getRepresentation());
+            }
+        }
+        if(hasCompleteLine){
+            System.out.println(board[z].getRepresentation());
+        }
+
         for (int i = 0; i < size; i++) {
             // Vérifier l'alignement horizontal
-            if (board[i * size].representation.equals(symbol) &&
-                    board[i * size + 1].representation.equals(symbol) &&
-                    board[i * size + 2].representation.equals(symbol)) {
+            if (board[i * size].getRepresentation().equals(symbol) &&
+                    board[i * size + 1].getRepresentation().equals(symbol) &&
+                    board[i * size + 2].getRepresentation().equals(symbol)) {
                 return true;
             }
 
             // Vérifier l'alignement vertical
-            if (board[i].representation.equals(symbol) &&
-                    board[i + size].representation.equals(symbol) &&
-                    board[i + size * 2].representation.equals(symbol)) {
+            if (board[i].getRepresentation().equals(symbol) &&
+                    board[i + size].getRepresentation().equals(symbol) &&
+                    board[i + size * 2].getRepresentation().equals(symbol)) {
                 return true;
             }
         }
 
         // Vérifier la diagonale de gauche à droite
-        if (board[0].representation.equals(symbol) &&
-                board[4].representation.equals(symbol) &&
-                board[8].representation.equals(symbol)) {
+        if (board[0].getRepresentation().equals(symbol) &&
+                board[4].getRepresentation().equals(symbol) &&
+                board[8].getRepresentation().equals(symbol)) {
             return true;
         }
 
         // Vérifier la diagonale de droite à gauche
-        if (board[2].representation.equals(symbol) &&
-                board[4].representation.equals(symbol) &&
-                board[6].representation.equals(symbol)) {
+        if (board[2].getRepresentation().equals(symbol) &&
+                board[4].getRepresentation().equals(symbol) &&
+                board[6].getRepresentation().equals(symbol)) {
             return true;
         }
 

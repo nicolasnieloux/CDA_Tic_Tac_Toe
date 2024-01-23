@@ -1,3 +1,5 @@
+package fr.nicoGames.tictactoe;
+
 /**
  * This class represents a human player
  */

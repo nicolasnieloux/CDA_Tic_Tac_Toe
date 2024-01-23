@@ -1,10 +1,12 @@
+package fr.nicoGames.tictactoe;
+
 /**
  * This class represents one cell of the board game.
  */
 public class Cell {
 
-    String representation = "|   ";
-    boolean isEmpt = true;
+    private String representation = "|   ";
+    private boolean isEmpt = true;
 
     /**
      * Returns the representation of the cell.
@@ -31,5 +33,9 @@ public class Cell {
      */
     public void setEmpt(boolean empt) {
         isEmpt = empt;
+    }
+
+    public void setRepresentation(String representationPlayer) {
+        this.representation = representationPlayer;
     }
 }

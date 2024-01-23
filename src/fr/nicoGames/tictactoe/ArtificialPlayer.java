@@ -1,3 +1,5 @@
+package fr.nicoGames.tictactoe;
+
 import java.util.Random;
 
 
@@ -16,7 +18,7 @@ public class ArtificialPlayer extends Player {
     }
 
     /**
-     * Returns one coordinate of the Artificial Player randomly.
+     * Returns one coordinate of the Artificial fr.nicoGames.tictactoe.Player randomly.
      *
      * @return An integer representing the randomly chosen coordinate.
      */

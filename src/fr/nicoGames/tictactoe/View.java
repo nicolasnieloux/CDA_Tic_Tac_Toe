@@ -1,3 +1,5 @@
+package fr.nicoGames.tictactoe;
+
 /**
  * This class represent all displays
  */
@@ -9,7 +11,7 @@ public class View {
      * of the cells. Each row and column is separated by delimiter lines.
      *
      * @param size  The size of the board (square).
-     * @param board The game board constructed with the Cell class.
+     * @param board The game board constructed with the fr.nicoGames.tictactoe.Cell class.
      * @see Cell#getRepresentation()
      */
     public void display(int size, Cell[] board) {
