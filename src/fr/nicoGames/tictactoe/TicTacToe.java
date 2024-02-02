@@ -127,6 +127,7 @@ public class TicTacToe {
      */
     public boolean isOver() {
         String symbol = player1.getRepresentation();
+        String symbol1 = player2.getRepresentation();
 
         boolean hasCompleteLine = false;
         int z = 0;
@@ -144,14 +145,20 @@ public class TicTacToe {
             // Vérifier l'alignement horizontal
             if (board[i * size].getRepresentation().equals(symbol) &&
                     board[i * size + 1].getRepresentation().equals(symbol) &&
-                    board[i * size + 2].getRepresentation().equals(symbol)) {
+                    board[i * size + 2].getRepresentation().equals(symbol) ||
+            board[i * size].getRepresentation().equals(symbol1) &&
+                    board[i * size + 1].getRepresentation().equals(symbol1) &&
+                    board[i * size + 2].getRepresentation().equals(symbol1)){
                 return true;
             }
 
             // Vérifier l'alignement vertical
             if (board[i].getRepresentation().equals(symbol) &&
                     board[i + size].getRepresentation().equals(symbol) &&
-                    board[i + size * 2].getRepresentation().equals(symbol)) {
+                    board[i + size * 2].getRepresentation().equals(symbol) ||
+            board[i].getRepresentation().equals(symbol1) &&
+                    board[i + size].getRepresentation().equals(symbol1) &&
+                    board[i + size * 2].getRepresentation().equals(symbol1)) {
                 return true;
             }
         }
@@ -159,14 +166,20 @@ public class TicTacToe {
         // Vérifier la diagonale de gauche à droite
         if (board[0].getRepresentation().equals(symbol) &&
                 board[4].getRepresentation().equals(symbol) &&
-                board[8].getRepresentation().equals(symbol)) {
+                board[8].getRepresentation().equals(symbol) ||
+                board[0].getRepresentation().equals(symbol1) &&
+                        board[4].getRepresentation().equals(symbol1) &&
+                        board[8].getRepresentation().equals(symbol1)) {
             return true;
         }
 
         // Vérifier la diagonale de droite à gauche
         if (board[2].getRepresentation().equals(symbol) &&
                 board[4].getRepresentation().equals(symbol) &&
-                board[6].getRepresentation().equals(symbol)) {
+                board[6].getRepresentation().equals(symbol) ||
+                board[2].getRepresentation().equals(symbol1) &&
+                        board[4].getRepresentation().equals(symbol1) &&
+                        board[6].getRepresentation().equals(symbol1)) {
             return true;
         }
 

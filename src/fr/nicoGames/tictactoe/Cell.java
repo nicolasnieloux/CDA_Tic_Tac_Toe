@@ -26,8 +26,7 @@ public class Cell {
         return isEmpt;
     }
 
-    /**
-     * Sets the emptiness status of the cell.
+    /**     * Sets the emptiness status of the cell.
      *
      * @param empt A boolean indicating whether the cell is empty or not.
      */
