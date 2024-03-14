@@ -30,6 +30,7 @@ public class TicTacToe {
 
     /**
      * Return the coordonates if they are corrects
+     *
      * @return int[] coordonates
      */
     public int[] getMoveFromPlayer() {
@@ -60,6 +61,7 @@ public class TicTacToe {
 
     /**
      * Return the coordonate of the AI if they are
+     *
      * @return int[] coordonate
      */
     public int[] getMoveFromArtificialPlayer() {
@@ -131,13 +133,13 @@ public class TicTacToe {
 
         boolean hasCompleteLine = false;
         int z = 0;
-        while (z< board.length && !hasCompleteLine){
+        while (z < board.length && !hasCompleteLine) {
             hasCompleteLine = true;
-            while((z+1) % size != 0 && hasCompleteLine) {
+            while ((z + 1) % size != 0 && hasCompleteLine) {
                 hasCompleteLine = hasCompleteLine && board[z].getRepresentation().equals(board[++z].getRepresentation());
             }
         }
-        if(hasCompleteLine){
+        if (hasCompleteLine) {
             System.out.println(board[z].getRepresentation());
         }
 
@@ -146,9 +148,9 @@ public class TicTacToe {
             if (board[i * size].getRepresentation().equals(symbol) &&
                     board[i * size + 1].getRepresentation().equals(symbol) &&
                     board[i * size + 2].getRepresentation().equals(symbol) ||
-            board[i * size].getRepresentation().equals(symbol1) &&
-                    board[i * size + 1].getRepresentation().equals(symbol1) &&
-                    board[i * size + 2].getRepresentation().equals(symbol1)){
+                    board[i * size].getRepresentation().equals(symbol1) &&
+                            board[i * size + 1].getRepresentation().equals(symbol1) &&
+                            board[i * size + 2].getRepresentation().equals(symbol1)) {
                 return true;
             }
 
@@ -156,9 +158,9 @@ public class TicTacToe {
             if (board[i].getRepresentation().equals(symbol) &&
                     board[i + size].getRepresentation().equals(symbol) &&
                     board[i + size * 2].getRepresentation().equals(symbol) ||
-            board[i].getRepresentation().equals(symbol1) &&
-                    board[i + size].getRepresentation().equals(symbol1) &&
-                    board[i + size * 2].getRepresentation().equals(symbol1)) {
+                    board[i].getRepresentation().equals(symbol1) &&
+                            board[i + size].getRepresentation().equals(symbol1) &&
+                            board[i + size * 2].getRepresentation().equals(symbol1)) {
                 return true;
             }
         }
